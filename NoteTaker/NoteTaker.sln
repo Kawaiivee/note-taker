@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34031.279
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NoteTaker", "NoteTaker\NoteTaker.csproj", "{3A4AFF4D-52D5-480D-86EE-71B85132DFB5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NoteTaker.Api", "NoteTaker\NoteTaker.Api.csproj", "{3A4AFF4D-52D5-480D-86EE-71B85132DFB5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
