@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';  //check local storage for a current default author...or use pinia
+import { addNote } from '../api/noteTakerApi';
 const note = ref({
   author: '',
   title: '',
@@ -8,8 +9,7 @@ const note = ref({
 
 const handleSaveButtonClicked = (event: Event): void => {
   event.preventDefault();
-  console.log("hello world!");
-  note.value.author = 'sheesh';
+  addNote(note);
 }
 </script>
 
