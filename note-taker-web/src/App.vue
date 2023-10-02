@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
-import CreateNoteView from './components/CreateNoteView.vue'
+import CreateNoteView from './views/CreateNoteView.vue'
 </script>
 
 <template>
