@@ -16,6 +16,14 @@ namespace NoteTaker
 
             var app = builder.Build();
 
+            app.UseCors(options =>
+            {
+                // scope these with specific values for better security
+                options.AllowAnyHeader()
+                    .AllowAnyOrigin()
+                    .AllowAnyMethod();
+            });
+
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {

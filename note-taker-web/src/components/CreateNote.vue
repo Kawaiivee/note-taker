@@ -1,15 +1,20 @@
 <script setup lang="ts">
 import { ref } from 'vue';  //check local storage for a current default author...or use pinia
 import { addNote } from '../api/noteTakerApi';
-const note = ref({
-  author: '',
-  title: '',
-  text: ''
+
+const addNoteRequest = ref({
+  authorName: '',
+  noteTitle: '',
+  noteText: ''
 });
 
 const handleSaveButtonClicked = (event: Event): void => {
   event.preventDefault();
-  addNote(note);
+  addNote({
+    authorName: addNoteRequest.value.authorName,
+    noteTitle: addNoteRequest.value.noteTitle,
+    noteText: addNoteRequest.value.noteText
+  });
 }
 </script>
 
@@ -18,26 +23,37 @@ const handleSaveButtonClicked = (event: Event): void => {
     <v-row>
       <v-col>
         <v-text-field
-        v-model="note.author"
-        label="Note Author"
-        required
-        ></v-text-field>
-        <v-text-field
-        v-model="note.title"
-        label="Note Title"
-        variant="outlined"
-        required
-        ></v-text-field>
-        <v-text-field
-        v-model="note.text"
-        label="Note Text"
-        variant="outlined"
-        required
-        ></v-text-field>
+          type="input"
+          v-model="addNoteRequest.noteTitle"
+          label="Note Title"
+          variant="outlined"
+          required
+        />
+        <v-textarea
+          type="input"
+          v-model="addNoteRequest.noteText"
+          label="Note Text"
+          variant="outlined"
+          required
+        />
       </v-col>
-      <v-btn
-        @click=handleSaveButtonClicked
-      >Save Note</v-btn>
+    </v-row>
+    <v-row>
+      <v-col>
+        <v-btn
+          @click=handleSaveButtonClicked
+        >
+        Save Note
+        </v-btn>
+      </v-col>
+      <v-col>
+        <v-text-field
+          type="input"
+          v-model="addNoteRequest.authorName"
+          label="Note Author"
+          required
+        />
+      </v-col>
     </v-row>
   </v-container>
 </template>

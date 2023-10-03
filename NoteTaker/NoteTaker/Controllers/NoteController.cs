@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using NoteTaker.Api.Models.Contracts;
 using NoteTaker.Models.Entities;
 
 namespace NoteTaker.Controllers
@@ -8,15 +9,15 @@ namespace NoteTaker.Controllers
     [Route("[controller]")]
     public class NoteController : ControllerBase
     {
-    private readonly ILogger<NoteController> _logger;
-    private static IEnumerable<Note> notes = new List<Note>{
-        new Note
-        {
-            Author = new Author { Id = Guid.NewGuid(), Name = "Kawaiivee" },
-            Title = "Title",
-            Text = "Text",
-        }
-    };
+        private readonly ILogger<NoteController> _logger;
+        private static IEnumerable<Note> notes = new List<Note>{
+            new Note
+            {
+                Author = new Author { Id = Guid.Empty, Name = "Kawaiivee" },
+                Title = "Title",
+                Text = "Text",
+            }
+        };
 
         public NoteController(ILogger<NoteController> logger)
         {
@@ -40,10 +41,30 @@ namespace NoteTaker.Controllers
 
         [HttpPost]
         [Route("addNote")]
-        public IActionResult AddNote(Note note)
+        public IActionResult AddNote(AddNoteRequest request)
         {
+            var authorExists = notes?.Any((x) => x?.Author?.Name == request?.AuthorName) ?? false;
+            var authorGuid = authorExists
+                ? notes?
+                    .FirstOrDefault(x => x?.Author?.Name == request?.AuthorName)?
+                    .Author?.Id
+                :
+                Guid.NewGuid();
+
+            var note = new Note
+            {
+                Author = new Author
+                {
+                    Id = authorGuid ?? Guid.NewGuid(),
+                    Name = request?.AuthorName ?? string.Empty,
+                },
+                Id = Guid.NewGuid(),
+                Title = request?.NoteTitle ?? string.Empty,
+                Text = request?.NoteText ?? string.Empty,
+            };
+
             notes = notes.Append(note);
-            return Created(note.ToString(), note);
+            return Created(string.Empty, note);
         }
 
         [HttpPut]
@@ -57,7 +78,8 @@ namespace NoteTaker.Controllers
             {
                 return BadRequest($"Note with note id: {note?.Id} doesn't exist");
             }
-            notes = notes.Where(x => !(x?.Id.ToString() == note?.Id.ToString()));
+
+            notes = notes?.Where(x => !(x?.Id.ToString() == note?.Id.ToString()));
             notes = notes.Append(note);
             return Ok(note);
         }

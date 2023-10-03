@@ -1,19 +1,21 @@
+import type { AddNoteRequest } from '@/classes/contracts';
+import type { AuthorModel, NoteModel } from '@/classes/types';
+
 import httpClient from './httpClient';
 const ENDPOINT = '/Note';
 
-const getNotes = () => {
-  httpClient.get(`${ENDPOINT}/getNotes`);
+const getNotes = async () => {
+  let notes = [];
+  const response = await httpClient.get(`${ENDPOINT}/getNotes`);
+  notes = response.data;
+  return notes;
 }
 
-const addNote = (note: any) => {
-  httpClient.post(`${ENDPOINT}/addNote`, {
-    id: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
-    author: {
-      id: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
-      name: note?.author?.name ?? ''
-    },
-    title: note?.title ?? '',
-    text: note?.text ?? ''
+const addNote = async (request: AddNoteRequest) => {
+  const response = await httpClient.post(`${ENDPOINT}/addNote`, {
+    authorName: request?.authorName,
+    noteTitle: request?.noteTitle,
+    noteText: request?.noteText
   });
 }
 
