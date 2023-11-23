@@ -1,23 +1,22 @@
 <script setup lang="ts">
-import { onMounted } from 'vue';
+import { defineProps, onMounted } from 'vue';
 
-// import type { NoteModel } from '@/classes/types';
-
-// export interface NoteProps {
-//   note: NoteModel;
-// };
-
-const props = defineProps();
+const props = defineProps(['note']);
 
 onMounted(() => {
   console.log(props);
 });
+
+const handleDeleteClicked = (event: MouseEvent) => {
+  
+};
+
 </script>
 
 <template>
   <v-container>
-    <v-card> ton
-      <!-- <v-card-title>
+    <v-card>
+      <v-card-title>
         {{ `${props.note.title}: ${props.note.text}` }} 
       </v-card-title>
       <v-card-subtitle>
@@ -25,7 +24,7 @@ onMounted(() => {
       </v-card-subtitle>
       <v-card-text>
         {{ `${props.note.text}` }}
-      </v-card-text> -->
+      </v-card-text>
     </v-card>
   </v-container>
 </template>
