@@ -6,17 +6,21 @@ const ENDPOINT = '/Note';
 
 const getNotes = async () => {
   let notes = [];
-  const response = await httpClient.get(`${ENDPOINT}/getNotes`);
+  const response = await httpClient.get(`${ENDPOINT}/get-all-notes`);
   notes = response.data;
   return notes;
 }
 
 const addNote = async (request: AddNoteRequest) => {
-  const response = await httpClient.post(`${ENDPOINT}/addNote`, {
+  const response = await httpClient.post(`${ENDPOINT}/add-note`, {
     authorName: request?.authorName,
     noteTitle: request?.noteTitle,
     noteText: request?.noteText
   });
 }
 
-export { getNotes, addNote };
+const deleteNote = async (id: string) => {
+  const response = await httpClient.delete(`${ENDPOINT}/delete-note-by-id/${id}`);
+}
+
+export { getNotes, addNote, deleteNote };

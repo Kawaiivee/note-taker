@@ -25,14 +25,14 @@ namespace NoteTaker.Controllers
         }
 
         [HttpGet]
-        [Route("getNotes")]
+        [Route("get-all-notes")]
         public IActionResult GetNotes()
         {
             return Ok(notes);
         }
 
         [HttpGet]
-        [Route("getNotesByAuthorId")]
+        [Route("get-notes-by-author-id")]
         public IActionResult GetNotes(string id)
         {
             return Ok(notes.Where(note => note?.Author?.Id.ToString() == id));
@@ -40,7 +40,7 @@ namespace NoteTaker.Controllers
 
 
         [HttpPost]
-        [Route("addNote")]
+        [Route("add-note")]
         public IActionResult AddNote(AddNoteRequest request)
         {
             var authorExists = notes?.Any((x) => x?.Author?.Name == request?.AuthorName) ?? false;
@@ -68,7 +68,7 @@ namespace NoteTaker.Controllers
         }
 
         [HttpPut]
-        [Route("editNote")]
+        [Route("edit-note")]
         public IActionResult UpdateNote(Note note)
         {
             if(
@@ -85,11 +85,15 @@ namespace NoteTaker.Controllers
         }
 
         [HttpDelete]
-        [Route("deleteNoteByNoteId")]
+        [Route("delete-note-by-id/{id}")]
         public IActionResult DeleteNote(string id)
         {
-            notes = notes.Where(note => !(note?.Id.ToString() == id));
-            return Ok();
+            if(notes.Any(note => (note?.Id.ToString() == id)))
+            {
+                notes = notes.Where(note => !(note?.Id.ToString() == id));
+                return Ok("Deleted");
+            }
+            return Ok("Unmodified");
         }
     }
 }
