@@ -13,9 +13,9 @@ namespace NoteTaker.Controllers
         private static IEnumerable<Note> notes = new List<Note>{
             new Note
             {
-                Author = new Author { Id = Guid.Empty, Name = "Kawaiivee" },
-                Title = "Title",
-                Text = "Text",
+                Author = new Author { Id = Guid.Empty, Name = "DragonForce" },
+                Title = "Through the Fire and Flames",
+                Text = "Now here we stand with their blood on our hands\r\nWe fought so hard, now can we understand?\r\nI'll break the seal of this curse if I possibly can\r\nFor freedom of every man\r\nSo far away, we wait for the day\r\nFor the lives all so wasted and gone\r\nWe feel the pain of a lifetime lost in a thousand days\r\nThrough the fire and the flames, we carry on",
             }
         };
 
@@ -38,16 +38,13 @@ namespace NoteTaker.Controllers
             return Ok(notes.Where(note => note?.Author?.Id.ToString() == id));
         }
 
-
         [HttpPost]
         [Route("add-note")]
         public IActionResult AddNote(AddNoteRequest request)
         {
             var authorExists = notes?.Any((x) => x?.Author?.Name == request?.AuthorName) ?? false;
             var authorGuid = authorExists
-                ? notes?
-                    .FirstOrDefault(x => x?.Author?.Name == request?.AuthorName)?
-                    .Author?.Id
+                ? notes?.FirstOrDefault(x => x?.Author?.Name == request?.AuthorName)?.Author?.Id
                 :
                 Guid.NewGuid();
 

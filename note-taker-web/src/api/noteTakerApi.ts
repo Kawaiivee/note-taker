@@ -23,4 +23,10 @@ const deleteNote = async (id: string) => {
   const response = await httpClient.delete(`${ENDPOINT}/delete-note-by-id/${id}`);
 }
 
+const updateNote = async (note: NoteModel) => {
+  const response = await httpClient.put(`${ENDPOINT}/edit-note`, {
+    
+  });
+}
+
 export { getNotes, addNote, deleteNote };

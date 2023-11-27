@@ -40,19 +40,19 @@ const handleSaveButtonClicked = (event: Event): void => {
     </v-row>
     <v-row>
       <v-col>
-        <v-btn
-          @click=handleSaveButtonClicked
-        >
-        Save Note
-        </v-btn>
-      </v-col>
-      <v-col>
         <v-text-field
           type="input"
           v-model="addNoteRequest.authorName"
           label="Note Author"
           required
         />
+      </v-col>
+      <v-col>
+        <v-btn
+          @click=handleSaveButtonClicked
+        >
+        Save Note
+        </v-btn>
       </v-col>
     </v-row>
   </v-container>
