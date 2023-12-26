@@ -66,26 +66,39 @@ const handleCancelClicked = () => {
           </v-card-text>
       </v-container>
       <v-container v-else>
-        <v-text-field
-          type="input"
-          label="Note Title"
-          v-model="editNote.title"
-          variant="outlined"
-          required
-        />
-        <v-textarea
-          type="input"
-          label="Note Text"
-          v-model="editNote.text"
-          variant="outlined"
-          required
-        />
-        <v-text-field
-          type="input"
-          label="Author"
-          v-model="editNote.author.name"
-          required
-        />
+        <v-row>
+          <v-text-field
+            type="input"
+            label="Note Title"
+            v-model="editNote.title"
+            variant="outlined"
+            required
+          />
+          <v-textarea
+            type="input"
+            label="Note Text"
+            v-model="editNote.text"
+            variant="outlined"
+            required
+          />
+        </v-row>
+        <v-row>
+          <v-col>
+            <v-text-field
+              type="input"
+              label="Author"
+              v-model="editNote.author.name"
+              required
+            />
+          </v-col>
+          <v-col>
+            <v-btn
+              @click=handleUpdateClicked
+            >
+            Save Note
+            </v-btn>
+          </v-col>
+        </v-row>
       </v-container>
       <v-container v-if="!isEditing">
         <v-card-action>
