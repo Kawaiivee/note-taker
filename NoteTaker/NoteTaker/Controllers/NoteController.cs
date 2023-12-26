@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using NoteTaker.Api.Models.Contracts;
 using NoteTaker.Models.Entities;
@@ -16,7 +15,7 @@ namespace NoteTaker.Controllers
                 Author = new Author { Id = Guid.Empty, Name = "DragonForce" },
                 Title = "Through the Fire and Flames",
                 Text = "Now here we stand with their blood on our hands\r\nWe fought so hard, now can we understand?\r\nI'll break the seal of this curse if I possibly can\r\nFor freedom of every man\r\nSo far away, we wait for the day\r\nFor the lives all so wasted and gone\r\nWe feel the pain of a lifetime lost in a thousand days\r\nThrough the fire and the flames, we carry on",
-            }
+            },
         };
 
         public NoteController(ILogger<NoteController> logger)

@@ -14,7 +14,12 @@ onMounted(async () => {
 const handleDeleteClicked = async (id: string) => {
   await deleteNote(id);
   notes.value = await getNotes();
+  console.log(Date.now());
 };
+
+const handleLocalDeleteClicked = async (id: string) => {
+  console.log(Date.now());
+}
 
 </script>
 
@@ -25,6 +30,7 @@ const handleDeleteClicked = async (id: string) => {
         :key="note.id"
         :note="note"
         :deleteClicked="handleDeleteClicked"
+        :localDeleteClicked="handleLocalDeleteClicked"
       />
     </v-row>
   </v-container>

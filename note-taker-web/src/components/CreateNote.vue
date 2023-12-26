@@ -8,13 +8,14 @@ const addNoteRequest = ref({
   noteText: ''
 });
 
-const handleSaveButtonClicked = (event: Event): void => {
+const handleSaveButtonClicked = async (event: Event) => {
   event.preventDefault();
-  addNote({
+  await addNote({
     authorName: addNoteRequest.value.authorName,
     noteTitle: addNoteRequest.value.noteTitle,
     noteText: addNoteRequest.value.noteText
   });
+  console.log(Date.now());
 }
 </script>
 
