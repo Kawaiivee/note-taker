@@ -5,11 +5,14 @@ services:
     build:
       context: ../note-taker-web
       dockerfile: Dockerfile
+    expose:
+      - 7890
+      - 7891
     ports:
       - 7890:7890
       - 7891:7891
     environment:
-      - VITE_NOTE_TAKER_API_BASE_URL=http://localhost:7892
+      - VITE_NOTE_TAKER_API_BASE_URL=http://kawaiivee.xyz:7892
     depends_on:
       - backend
   backend:
@@ -18,11 +21,11 @@ services:
       context: ../NoteTaker/NoteTaker
       dockerfile: Dockerfile
     expose:
-      - "7893"
-      - "7892"
+      - 7893
+      - 7892
     ports:
-      - "7893:7893"
-      - "7892:7892"
+      - 7893:7893
+      - 7892:7892
     environment:
       - ASPNETCORE_ENVIRONMENT=Docker
       - ASPNETCORE_URLS=https://+:7893;http://+:7892
