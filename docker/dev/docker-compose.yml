@@ -12,7 +12,7 @@ services:
       - 7890:7890
       - 7891:7891
     environment:
-      - VITE_NOTE_TAKER_API_BASE_URL=http://kawaiivee.xyz:7892
+      - VITE_NOTE_TAKER_API_BASE_URL=http://host.docker.internal:7892
     depends_on:
       - backend
   backend:
@@ -30,12 +30,13 @@ services:
       - ASPNETCORE_ENVIRONMENT=Docker
       - ASPNETCORE_URLS=https://+:7893;http://+:7892
     depends_on:
-      - database
-  database:
+      db:
+        condition: service_healthy
+  db:
     image: postgres:latest
     ports:
-      - 5432:5432
+      - 7894:7894
     environment:
+      POSTGRES_DB: note_taker
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: kittycatmeow
-      POSTGRES_DB: litter_box
