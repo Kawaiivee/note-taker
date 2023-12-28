@@ -1,4 +1,6 @@
 
+using Microsoft.AspNetCore.HttpOverrides;
+
 namespace NoteTaker
 {
     public class Program
@@ -16,6 +18,11 @@ namespace NoteTaker
 
             var app = builder.Build();
 
+            app.UseForwardedHeaders(new ForwardedHeadersOptions
+            {
+                ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+            });
+
             app.UseCors(options =>
             {
                 // scope these with specific values for better security
@@ -26,6 +33,7 @@ namespace NoteTaker
 
             app.UseSwagger();
             app.UseSwaggerUI();
+
 
             //app.UseHttpsRedirection();
 

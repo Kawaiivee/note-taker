@@ -5,6 +5,8 @@ services:
     build:
       context: ../../note-taker-web
       dockerfile: Dockerfile
+    networks:
+      - default
     expose:
       - 7890
       - 7891
@@ -12,7 +14,7 @@ services:
       - 7890:7890
       - 7891:7891
     environment:
-      - VITE_NOTE_TAKER_API_BASE_URL=http://0.0.0.0:7892
+      - VITE_NOTE_TAKER_API_BASE_URL=http://note-taker-api.kawaiivee.xyz:7892
     depends_on:
       - backend
   backend:
@@ -20,6 +22,8 @@ services:
     build:
       context: ../../NoteTaker/NoteTaker
       dockerfile: Dockerfile
+    networks:
+      - default
     expose:
       - 7893
       - 7892
@@ -33,9 +37,14 @@ services:
       - db
   db:
     image: postgres:latest
+    networks:
+      - default
     ports:
       - 5432:5432
     environment:
       POSTGRES_DB: note_taker
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: kittycatmeow
+networks:
+  default:
+    driver: bridge
