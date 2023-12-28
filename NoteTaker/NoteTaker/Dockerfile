@@ -17,4 +17,4 @@ COPY . .
 EXPOSE 7892
 
 # Publish the ASP.NET backend
-CMD ["dotnet", "run", "--urls", "http://+:7892"]
+CMD ["dotnet", "run", "--urls", "http://0.0.0.0:7892"]
