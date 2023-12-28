@@ -30,12 +30,11 @@ services:
       - ASPNETCORE_ENVIRONMENT=Docker
       - ASPNETCORE_URLS=https://+:7893;http://+:7892
     depends_on:
-      db:
-        condition: service_healthy
+      - db
   db:
     image: postgres:latest
     ports:
-      - 7894:7894
+      - 5432:5432
     environment:
       POSTGRES_DB: note_taker
       POSTGRES_USER: postgres
