@@ -5,8 +5,6 @@ services:
     build:
       context: ../../note-taker-web
       dockerfile: Dockerfile
-    networks:
-      - default
     expose:
       - 7890
     ports:
@@ -20,8 +18,6 @@ services:
     build:
       context: ../../NoteTaker/NoteTaker
       dockerfile: Dockerfile
-    networks:
-      - default
     expose:
       - 7892
     ports:
@@ -33,14 +29,9 @@ services:
       - db
   db:
     image: postgres:latest
-    networks:
-      - default
     ports:
       - 5432:5432
     environment:
       POSTGRES_DB: note_taker
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: kittycatmeow
-networks:
-  default:
-    driver: bridge
