@@ -14,7 +14,7 @@ RUN yarn install
 COPY . .
 
 # Expose ports
-EXPOSE 7891 7890
+EXPOSE 7890
 
 # Run development build
 CMD ["yarn", "dev"]

@@ -14,7 +14,7 @@ RUN dotnet restore
 COPY . .
 
 # Expose ports
-EXPOSE 7893 7892
+EXPOSE 7892
 
 # Publish the ASP.NET backend
 ENTRYPOINT ["dotnet", "run", "--urls", "http://0.0.0.0:7892"]
