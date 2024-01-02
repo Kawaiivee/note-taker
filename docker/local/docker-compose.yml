@@ -1,7 +1,6 @@
 version: '3'
 services:
   frontend:
-    tty: true
     build:
       context: ../../note-taker-web
       dockerfile: Dockerfile
@@ -14,7 +13,6 @@ services:
     depends_on:
       - backend
   backend:
-    tty: true
     build:
       context: ../../NoteTaker/NoteTaker
       dockerfile: Dockerfile

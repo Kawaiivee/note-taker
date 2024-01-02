@@ -1,7 +1,7 @@
 version: '3'
 services:
   frontend:
-    tty: true
+    container_name: note-taker-frontend
     build:
       context: ../../note-taker-web
       dockerfile: Dockerfile
@@ -14,7 +14,7 @@ services:
     depends_on:
       - backend
   backend:
-    tty: true
+    container_name: note-taker-backend
     build:
       context: ../../NoteTaker/NoteTaker
       dockerfile: Dockerfile
@@ -28,6 +28,7 @@ services:
     depends_on:
       - db
   db:
+    container_name: note-taker-db
     image: postgres:latest
     ports:
       - 5432:5432
