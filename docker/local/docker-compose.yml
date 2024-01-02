@@ -29,8 +29,8 @@ services:
       - db
   db:
     image: postgres:latest
-    networks:
-      - default
+    expose:
+      - 5432
     ports:
       - 5432:5432
     environment:
