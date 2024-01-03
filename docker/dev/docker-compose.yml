@@ -26,7 +26,7 @@ services:
       - 7892:7892
     environment:
       - ASPNETCORE_ENVIRONMENT=Docker
-      - ASPNETCORE_URLS=http://+:7892
+      - ASPNETCORE_URLS=http://0.0.0.0:7892
     depends_on:
       - db
   db:
