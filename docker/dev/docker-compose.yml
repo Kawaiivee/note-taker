@@ -9,7 +9,7 @@ services:
     expose:
       - 7890
     ports:
-      - 7890:7890
+      - "7890:7890"
     environment:
       - VITE_NOTE_TAKER_API_BASE_URL=http://note-taker-api.kawaiivee.xyz
     depends_on:
@@ -23,7 +23,7 @@ services:
     expose:
       - 7892
     ports:
-      - 7892:7892
+      - "7892:7892"
     environment:
       - ASPNETCORE_ENVIRONMENT=Docker
       - ASPNETCORE_URLS=http://+:7892
@@ -35,7 +35,7 @@ services:
     expose:
       - 5432
     ports:
-      - 5432:5432
+      - "5432:5432"
     environment:
       POSTGRES_DB: note_taker
       POSTGRES_USER: postgres
