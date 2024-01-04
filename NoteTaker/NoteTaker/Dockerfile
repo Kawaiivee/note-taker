@@ -43,4 +43,4 @@ FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS runtime
 WORKDIR /app
 COPY --from=build /app .
 EXPOSE 7892
-ENTRYPOINT ["dotnet", "NoteTaker.Api.dll"]
+ENTRYPOINT ["dotnet", "NoteTaker.Api.dll", "--urls", "http://+:7892"]
