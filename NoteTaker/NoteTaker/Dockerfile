@@ -17,4 +17,4 @@ COPY . .
 EXPOSE 7892
 
 # Publish the ASP.NET backend
-ENTRYPOINT ["dotnet", "run"]
+ENTRYPOINT ["dotnet", "run", "--urls", "0.0.0.0:7892"]
