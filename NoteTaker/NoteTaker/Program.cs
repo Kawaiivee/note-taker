@@ -15,6 +15,15 @@ namespace NoteTaker
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+            builder.Services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(policy =>
+                    {
+                        policy.AllowAnyHeader()
+                        .AllowAnyOrigin()
+                        .AllowAnyMethod();
+                    });
+            });
 
             var app = builder.Build();
 
@@ -23,13 +32,7 @@ namespace NoteTaker
                 ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
             });
 
-            app.UseCors(options =>
-            {
-                // scope these with specific values for better security
-                options.AllowAnyHeader()
-                    .AllowAnyOrigin()
-                    .AllowAnyMethod();
-            });
+            app.UseCors();
 
             app.UseSwagger();
             app.UseSwaggerUI();
