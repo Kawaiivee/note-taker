@@ -26,16 +26,16 @@ services:
       - "7892:7892"
     environment:
       - ASPNETCORE_ENVIRONMENT=Docker
+      - DATABASE_URL=postgres://postgres:kittycatmeow@postgres:7894/note_taker
     depends_on:
       - db
   db:
     container_name: note-taker-db
     image: postgres:latest
     expose:
-      - 5432
       - 7894
     ports:
-      - "7894:5432"
+      - "7894:7894"
     environment:
       POSTGRES_DB: note_taker
       POSTGRES_USER: postgres
