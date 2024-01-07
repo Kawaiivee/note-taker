@@ -3,7 +3,7 @@ services:
   frontend:
     container_name: note-taker-frontend
     networks:
-      - dev-network:
+      - dev-network
     tty: true
     build:
       context: ../../note-taker-web
