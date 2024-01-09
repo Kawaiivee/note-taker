@@ -1,8 +1,14 @@
-﻿namespace NoteTaker.Models.Entities
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace NoteTaker.Models.Entities
 {
     public class Author
     {
+        [Key]
         public Guid Id { get; set; }
-        public string Name { get; set; } = string.Empty;
+        [Required]
+        public string Name { get; set; }
+        public DateTime DateCreated { get; set; }
+        public DateTime DateUpdated { get; set; }
     }
 }

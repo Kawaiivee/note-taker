@@ -1,5 +1,8 @@
 
 using Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
+using System.Reflection;
 
 namespace NoteTaker
 {
@@ -14,7 +17,19 @@ namespace NoteTaker
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+            builder.Services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1",
+                    new OpenApiInfo
+                    {
+                        Title = "Note Taker API",
+                        Description = "API for taking notes",
+                        Version = "v1",
+                    });
+
+                c.UseInlineDefinitionsForEnums();
+                c.UseAllOfToExtendReferenceSchemas();
+            });
             builder.Services.AddCors(options =>
             {
                 options.AddDefaultPolicy(policy =>
@@ -23,6 +38,13 @@ namespace NoteTaker
                         .AllowAnyOrigin()
                         .AllowAnyMethod();
                     });
+            });
+
+            builder.Services.AddDbContext<ApplicationDbContext>(options =>
+            {
+                // Connection String here
+                var connectionString = builder.Configuration.GetConnectionString("NoteTakerConnectionString");
+                options.UseNpgsql(connectionString);
             });
 
             var app = builder.Build();
@@ -37,8 +59,7 @@ namespace NoteTaker
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My service");
-                c.RoutePrefix = string.Empty;
+                c.EnableFilter();
             });
 
             //app.UseHttpsRedirection();
