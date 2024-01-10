@@ -38,6 +38,8 @@ services:
     image: backend:latest
     command: ["./wait-for-it/wait-for-it.sh", "db:5432", "--", "dotnet ef database update"]
     links:
+      - backend
       - db
     depends_on:
+      - backend
       - db
