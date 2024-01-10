@@ -39,6 +39,7 @@ COPY . .
 RUN dotnet build -c Release -o /app
 
 # Install dotnet-ef and migrate DB
+WORKDIR /app
 ENV PATH="$PATH:/root/.dotnet/tools"
 RUN dotnet tool install --global dotnet-ef && dotnet ef migrations add InitialCreate
 
