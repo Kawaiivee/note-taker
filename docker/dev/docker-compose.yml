@@ -24,6 +24,7 @@ services:
       - ASPNETCORE_ENVIRONMENT=Docker
     depends_on:
       - db
+    command: ["./wait-for-it/wait-for-it.sh", "db:5432", "--", "dotnet ef database update"]
   db:
     container_name: note-taker-db
     image: postgres:latest
@@ -33,13 +34,3 @@ services:
       POSTGRES_DB: note_taker
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: kittycatmeow
-  migration:
-    container_name: note-taker-migration
-    image: dev-backend:latest
-    command: ["./wait-for-it/wait-for-it.sh", "db:5432", "--", "dotnet ef database update"]
-    links:
-      - backend
-      - db
-    depends_on:
-      - backend
-      - db
