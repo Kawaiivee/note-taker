@@ -29,10 +29,6 @@ WORKDIR /src
 # Copy the project file and restore dependencies
 COPY NoteTaker.Api.csproj .
 
-# Install dotnet-ef and migrate DB
-ENV PATH="$PATH:/root/.dotnet/tools"
-RUN dotnet tool install --global dotnet-ef && dotnet ef migrations add InitialCreate
-
 # Restore
 RUN dotnet restore
 
