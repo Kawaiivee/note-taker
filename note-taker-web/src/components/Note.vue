@@ -10,11 +10,11 @@ const note = props?.note;
 const isEditing = ref<boolean>(false);
 const isNoteDirty = ref<boolean>(false);
 const originalNote = ref<NoteModel>({
-  id: note?.id,
+  id: note?.id ?? '',
   title: note?.title,
   text: note?.text,
   author: {
-    id: note?.author?.id,
+    id: note?.author?.id ?? '',
     name: note?.author?.name
   }
 });
