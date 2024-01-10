@@ -35,11 +35,11 @@ RUN dotnet restore
 # Copy the rest of the backend source code
 COPY . .
 
-# Install dotnet-ef and migrate DB
-RUN dotnet tool install --global dotnet-ef && dotnet-ef migrations add InitialMigration --output-dir Migrations && dotnet-ef database update
-
 # Build the application
 RUN dotnet build -c Release -o /app
+
+# Install dotnet-ef and migrate DB
+RUN dotnet tool install --global dotnet-ef && dotnet-ef migrations add InitialCreate --output-dir Migrations && dotnet-ef database update
 
 # Publish the ASP.NET backend
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
