@@ -40,7 +40,7 @@ RUN dotnet build -c Release -o /app
 
 # Install dotnet-ef and migrate DB
 WORKDIR /src/NoteTaker/NoteTaker
-RUN dotnet tool install --global dotnet-ef && dotnet ef migrations add InitialCreate && dotnet ef database update
+RUN pwd && dotnet tool install --global dotnet-ef && dotnet ef migrations add InitialCreate && dotnet ef database update
 
 # Publish the ASP.NET backend
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
