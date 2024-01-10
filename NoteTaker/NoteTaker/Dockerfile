@@ -35,6 +35,11 @@ RUN dotnet restore
 # Copy the rest of the backend source code
 COPY . .
 
+# Install dotnet-ef and migrate DB
+RUN dotnet tool install --global dotnet-ef
+RUN dotnet ef migrations add InitialMigration --output-dir Migrations
+RUN dotnet ef database update
+
 # Build the application
 RUN dotnet build -c Release -o /app
 
