@@ -10,12 +10,12 @@ const note = props?.note;
 const isEditing = ref<boolean>(false);
 const isNoteDirty = ref<boolean>(false);
 const originalNote = ref<NoteModel>({
-  id: note.id,
-  title: note.title,
-  text: note.text,
+  id: note?.id,
+  title: note?.title,
+  text: note?.text,
   author: {
-    id: note.author.id,
-    name: note.author.name
+    id: note?.author?.id,
+    name: note?.author?.name
   }
 });
 const editNote = ref<NoteModel>(note);
@@ -26,7 +26,7 @@ onMounted(() => {
 
 watch(() => editNote, (newNoteValue) => {
   if(
-    newNoteValue.value.author.name !== originalNote.value.author.name ||
+    newNoteValue.value.author?.name !== originalNote.value.author.name ||
     newNoteValue.value.title !== originalNote.value.title ||
     newNoteValue.value.text !== originalNote.value.text
   ) {
@@ -56,13 +56,13 @@ const handleCancelClicked = () => {
     <v-card>
       <v-container v-if="!isEditing">
           <v-card-title>
-            {{ `${note.title}` }} 
+            {{ `${note?.title}` }} 
           </v-card-title>
           <v-card-subtitle>
-            {{ `${note.author.name}` }} 
+            {{ `${note?.author?.name}` }} 
           </v-card-subtitle>
           <v-card-text>
-            {{ `${note.text}` }}
+            {{ `${note?.text}` }}
           </v-card-text>
       </v-container>
       <v-container v-else>
@@ -105,7 +105,7 @@ const handleCancelClicked = () => {
           <v-icon @click.prevent="() => isEditing = !isEditing" icon="mdi-pencil"></v-icon>
         </v-card-action>
         <v-card-action>
-          <v-icon @click.prevent="props.deleteClicked(props.note.id)" icon="mdi-delete"></v-icon>
+          <v-icon @click.prevent="props.deleteClicked(props?.note?.id)" icon="mdi-delete"></v-icon>
         </v-card-action>
       </v-container>
       <v-container v-else>
