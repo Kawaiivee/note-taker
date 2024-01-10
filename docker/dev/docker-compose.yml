@@ -24,6 +24,7 @@ services:
       - ASPNETCORE_ENVIRONMENT=Docker
     depends_on:
       - db
+    command: sh -c "dotnet restore && dotnet tool install --global dotnet-ef && cd ../../NoteTaker/NoteTaker && dotnet ef database update"
   db:
     container_name: note-taker-db
     image: postgres:latest
