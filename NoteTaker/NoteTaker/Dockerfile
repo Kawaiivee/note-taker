@@ -19,6 +19,9 @@ COPY . .
 # Build the application
 RUN dotnet build -c Release -o /app
 
+# Waiting script (for migration)
+RUN git clone https://github.com/vishnubob/wait-for-it.git
+
 # Publish the ASP.NET backend
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
 WORKDIR /app
