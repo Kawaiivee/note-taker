@@ -21,7 +21,7 @@ namespace NoteTaker.Controllers
         [Route("get-all-notes")]
         public IActionResult GetNotes()
         {
-            return Ok(_context.Notes);
+            return Ok(_context.Notes.ToList());
         }
 
         [HttpGet]
@@ -38,10 +38,10 @@ namespace NoteTaker.Controllers
         public async Task<IActionResult> AddNote(AddNoteRequest request)
         {
             var author = _context.Authors.FirstOrDefault(x => x.Name == request.AuthorName);
-            var newAuthor = new Author
+            var upsertAuthor = new Author
             {
                 Id = author?.Id ?? Guid.NewGuid(),
-                Name = request?.AuthorName ?? string.Empty,
+                Name = author?.Name ?? request?.AuthorName,
             };
 
             var newNote = new Note
@@ -49,20 +49,13 @@ namespace NoteTaker.Controllers
                 Id = Guid.NewGuid(),
                 Title = request?.NoteTitle ?? string.Empty,
                 Text = request?.NoteText ?? string.Empty,
-                Author = newAuthor,
+                Author = upsertAuthor,
             };
-
-            if(author == null || author?.Id == null || author?.Name == null)
-            {
-                _context.Authors.Add(newAuthor);
-            }
-            else
-            {
-                _context.Authors.Update(newAuthor);
-            }
-
+            
+            _context.Authors.Add(upsertAuthor);
             _context.Notes.Add(newNote);
             await _context.SaveChangesAsync();
+
             return Created(string.Empty, newNote);
         }
 

@@ -22,7 +22,6 @@ services:
       - "7892:7892"
     environment:
       - ASPNETCORE_ENVIRONMENT=Docker
-      - DATABASE_URL=postgres://postgres:kittycatmeow@note-taker-db.kawaiivee.xyz:7894/note_taker
     depends_on:
       - db
   db:
