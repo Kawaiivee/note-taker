@@ -21,7 +21,7 @@
 
 ### ChatGPT Solution
 # Base image
-FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 
 # Set the working directory
 WORKDIR /src
@@ -39,7 +39,7 @@ COPY . .
 RUN dotnet build -c Release -o /app
 
 # Publish the ASP.NET backend
-FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS runtime
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
 WORKDIR /app
 COPY --from=build /app .
 EXPOSE 7892
