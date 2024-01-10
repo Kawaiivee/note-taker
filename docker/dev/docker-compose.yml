@@ -34,8 +34,8 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: kittycatmeow
   migration:
-    container_name: backend-migration
-    image: backend:latest
+    container_name: note-taker-migration
+    image: note-taker-backend:latest
     command: ["./wait-for-it/wait-for-it.sh", "db:5432", "--", "dotnet ef database update"]
     links:
       - backend
