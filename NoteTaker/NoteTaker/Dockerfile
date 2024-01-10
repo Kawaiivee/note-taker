@@ -36,7 +36,7 @@ RUN dotnet restore
 COPY . .
 
 # Install dotnet-ef and migrate DB
-RUN dotnet tool install --global dotnet-ef && dotnet ef migrations add InitialMigration --output-dir Migrations && dotnet ef database update
+RUN dotnet tool install --global dotnet-ef && dotnet-ef migrations add InitialMigration --output-dir Migrations && dotnet-ef database update
 
 # Build the application
 RUN dotnet build -c Release -o /app
