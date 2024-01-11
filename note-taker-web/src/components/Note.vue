@@ -3,7 +3,7 @@
 import { updateNote } from '@/api/noteTakerApi';
 import type { NoteModel } from '@/classes/types';
 import { watch } from 'vue';
-import { onMounted, ref } from 'vue';
+import { ref } from 'vue';
 
 const props = defineProps(['note', 'deleteClicked']);
 const note = props?.note;
@@ -20,10 +20,6 @@ const originalNote = ref<NoteModel>({
 });
 const editNote = ref<NoteModel>(note);
 
-onMounted(() => {
-  console.log(props);
-});
-
 watch(() => editNote, (newNoteValue) => {
   if(
     newNoteValue.value.title !== originalNote.value.title ||
@@ -37,15 +33,16 @@ watch(() => editNote, (newNoteValue) => {
 }, { deep: true });   // checks for specific nested values too
 
 const handleUpdateClicked = async () => {
-  originalNote.value = editNote.value;
+  originalNote.value = JSON.parse(JSON.stringify(editNote.value));
+  isNoteDirty.value = false;
   await updateNote(editNote.value);
-  isEditing.value = !isEditing.value;
+  isEditing.value = false;
 };
 
 const handleCancelClicked = () => {
-  note.value = originalNote;
-  editNote.value = originalNote.value;
-  isEditing.value = !isEditing.value;
+  note.value = JSON.parse(JSON.stringify(originalNote.value));
+  editNote.value = JSON.parse(JSON.stringify(originalNote.value));
+  isEditing.value = false;
 };
 
 </script>
@@ -86,13 +83,6 @@ const handleCancelClicked = () => {
         <v-row>
           <v-col>
             Author: {{editNote.author.name}}
-          </v-col>
-          <v-col>
-            <v-btn
-              @click=handleUpdateClicked
-            >
-            Save Note
-            </v-btn>
           </v-col>
         </v-row>
       </v-container>

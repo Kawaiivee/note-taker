@@ -15,7 +15,6 @@ const handleSaveButtonClicked = async (event: Event) => {
     noteTitle: addNoteRequest.value.noteTitle,
     noteText: addNoteRequest.value.noteText
   });
-  console.log(Date.now());
 }
 </script>
 
