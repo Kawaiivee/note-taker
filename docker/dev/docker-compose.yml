@@ -30,7 +30,7 @@ services:
     ports:
       - "7894:5432"
     volumes:
-      - ./data:/data
+      - ./postgres-data:/var/lib/postgresql/data
     environment:
       POSTGRES_DB: note_taker
       POSTGRES_USER: postgres
