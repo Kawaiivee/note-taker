@@ -88,14 +88,33 @@ namespace NoteTaker.Controllers
         [Route("delete-note-by-id/{id}")]
         public async Task<IActionResult> DeleteNote(string id)
         {
-            if(_context.Notes.Any(note => note.Id.ToString() == id))
+            var noteId = Guid.Parse(id);
+
+            var note = await _context.Notes.FindAsync(noteId);
+
+            if (note == null)
             {
-                _context.Notes.Remove(await _context.Notes.FirstOrDefaultAsync(note => note.Id.ToString() == id));
-                await _context.SaveChangesAsync();
-                return Ok("Deleted");
+                return NotFound("Note not found");
             }
+
+            // Check if there are no more notes for the author
+            var authorId = note.Author.Id;
+            var hasOtherNotes = _context.Notes.Any(n => n.Author.Id == authorId && n.Id != noteId);
+
+            if (!hasOtherNotes)
+            {
+                // No more notes for the author, delete the author
+                var author = await _context.Authors.FindAsync(authorId);
+                if (author != null)
+                {
+                    _context.Authors.Remove(author);
+                }
+            }
+
+            _context.Notes.Remove(note);
             await _context.SaveChangesAsync();
-            return Ok("Unmodified");
+
+            return Ok("Deleted");
         }
     }
 }
