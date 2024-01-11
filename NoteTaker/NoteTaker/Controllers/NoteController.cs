@@ -58,6 +58,7 @@ namespace NoteTaker.Controllers
             }
             else
             {
+                upsertAuthor.Id = author.Id;
                 _context.Authors.Update(upsertAuthor);
             }
             _context.Notes.Add(newNote);
