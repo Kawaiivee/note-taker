@@ -1,18 +1,14 @@
 # Base image
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 
-# Install the Entity Framework tools
-COPY NoteTaker.Api.csproj .
-RUN dotnet tool install --global dotnet-ef && dotnet ef migrations add InitialCreate
-
 # Set the working directory
 WORKDIR /src
 
 # Copy the project file and restore dependencies
 COPY NoteTaker.Api.csproj .
 
-# Restore
-RUN dotnet restore
+# Restore and migrate
+RUN dotnet restore && dotnet tool install --global dotnet-ef && dotnet ef migrations add InitialCreate
 
 # Copy the rest of the backend source code
 COPY . .
