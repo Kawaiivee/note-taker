@@ -1,6 +1,6 @@
 version: '3'
 services:
-  frontend:
+  note-taker-frontend:
     container_name: note-taker-frontend
     tty: true
     build:
@@ -12,7 +12,7 @@ services:
       - VITE_NOTE_TAKER_API_BASE_URL=http://note-taker-api.kawaiivee.xyz
     depends_on:
       - backend
-  backend:
+  note-taker-backend:
     container_name: note-taker-backend
     tty: true
     build:
@@ -24,12 +24,13 @@ services:
       - ASPNETCORE_ENVIRONMENT=Docker
     depends_on:
       - db
-    command: ["./wait-for-it/wait-for-it.sh", "db:5432", "--", "dotnet ef database update"]
-  db:
+  note-taker-db:
     container_name: note-taker-db
     image: postgres:latest
     ports:
       - "7894:5432"
+    volumes:
+      - ./data/data
     environment:
       POSTGRES_DB: note_taker
       POSTGRES_USER: postgres

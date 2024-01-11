@@ -1,6 +1,6 @@
 version: '3'
 services:
-  frontend:
+  note-taker-frontend:
     container_name: note-taker-frontend
     tty: true
     build:
@@ -14,7 +14,7 @@ services:
       - VITE_NOTE_TAKER_API_BASE_URL=localhost:7892
     depends_on:
       - backend
-  backend:
+  note-taker-backend:
     container_name: note-taker-backend
     tty: true
     build:
@@ -28,7 +28,7 @@ services:
       - ASPNETCORE_ENVIRONMENT=Docker
     depends_on:
       - db
-  db:
+  note-taker-db:
     container_name: note-taker-db
     image: postgres:latest
     expose:
