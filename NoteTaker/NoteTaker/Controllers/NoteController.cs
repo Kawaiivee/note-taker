@@ -58,6 +58,9 @@ namespace NoteTaker.Controllers
             }
             else
             {
+                // Detach the existing entity before attaching the new one
+                _context.Entry(author).State = EntityState.Detached;
+
                 upsertAuthor.Id = author.Id;
                 _context.Authors.Update(upsertAuthor);
             }
