@@ -52,7 +52,14 @@ namespace NoteTaker.Controllers
                 Author = upsertAuthor,
             };
             
-            _context.Authors.Add(upsertAuthor);
+            if(author == null)
+            {
+                _context.Authors.Add(upsertAuthor);
+            }
+            else
+            {
+                _context.Authors.Update(upsertAuthor);
+            }
             _context.Notes.Add(newNote);
             await _context.SaveChangesAsync();
 
