@@ -13,7 +13,7 @@ services:
     environment:
       - VITE_NOTE_TAKER_API_BASE_URL=localhost:7892
     depends_on:
-      - backend
+      - note-taker-backend
   note-taker-backend:
     container_name: note-taker-backend
     tty: true
@@ -27,7 +27,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Docker
     depends_on:
-      - db
+      - note-taker-db
   note-taker-db:
     container_name: note-taker-db
     image: postgres:latest
