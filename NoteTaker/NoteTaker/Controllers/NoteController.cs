@@ -88,7 +88,7 @@ namespace NoteTaker.Controllers
         [Route("delete-note-by-id/{id}")]
         public async Task<IActionResult> DeleteNote(string id)
         {
-            var note = _context.Notes.Where(n => id == n.Id.ToString()).FirstOrDefault();
+            var note = _context.Notes.Where(n => id == n.Id.ToString()).Include(n => n.Author).FirstOrDefault();
 
             if (note == null)
             {
