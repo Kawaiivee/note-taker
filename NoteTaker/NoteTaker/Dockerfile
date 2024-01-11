@@ -2,6 +2,7 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 
 # Install the Entity Framework tools
+COPY NoteTaker.Api.csproj .
 RUN dotnet tool install --global dotnet-ef && dotnet ef migrations add InitialCreate
 
 # Set the working directory
