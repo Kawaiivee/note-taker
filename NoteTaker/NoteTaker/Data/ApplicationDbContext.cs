@@ -15,7 +15,7 @@ public class ApplicationDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         // postgres now
-        var sqlNow = "timestamp";
+        var sqlNow = "current_timestamp";
         modelBuilder.Entity<Author>()
             .Property(a => a.DateCreated)
             .HasDefaultValueSql(sqlNow);
