@@ -26,7 +26,6 @@ onMounted(() => {
 
 watch(() => editNote, (newNoteValue) => {
   if(
-    newNoteValue.value.author?.name !== originalNote.value.author.name ||
     newNoteValue.value.title !== originalNote.value.title ||
     newNoteValue.value.text !== originalNote.value.text
   ) {
@@ -74,6 +73,8 @@ const handleCancelClicked = () => {
             variant="outlined"
             required
           />
+        </v-row>
+        <v-row>
           <v-textarea
             type="input"
             label="Note Text"
@@ -84,12 +85,7 @@ const handleCancelClicked = () => {
         </v-row>
         <v-row>
           <v-col>
-            <v-text-field
-              type="input"
-              label="Author"
-              v-model="editNote.author.name"
-              required
-            />
+            Author: {{editNote.author.name}}
           </v-col>
           <v-col>
             <v-btn
