@@ -21,14 +21,14 @@ namespace NoteTaker.Controllers
         [Route("get-all-notes")]
         public IActionResult GetNotes()
         {
-            return Ok(_context.Notes.ToList());
+            return Ok(_context.Notes.Include(n => n.Author));
         }
 
         [HttpGet]
         [Route("get-notes-by-author-id")]
         public IActionResult GetNotes(string id)
         {
-            return Ok(_context.Notes.ToList()
+            return Ok(_context.Notes.Include(n => n.Author).ToList()
                 .Where(note => note?.Author?.Id.ToString() == id)
             );
         }
