@@ -12,9 +12,16 @@ namespace NoteTaker
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
+            builder.Services.AddDbContext<ApplicationDbContext>(options =>
+            {
+                // Connection String here
+                var connectionString = builder.Configuration.GetConnectionString("NoteTakerConnectionString");
+                options.UseNpgsql(connectionString);
+            });
 
+            // Add services to the container.
             builder.Services.AddControllers();
+
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen(c =>
@@ -30,21 +37,15 @@ namespace NoteTaker
                 c.UseInlineDefinitionsForEnums();
                 c.UseAllOfToExtendReferenceSchemas();
             });
+
             builder.Services.AddCors(options =>
             {
                 options.AddDefaultPolicy(policy =>
                     {
-                        policy.AllowAnyHeader()
-                        .AllowAnyOrigin()
-                        .AllowAnyMethod();
+                        policy.AllowAnyHeader();
+                        policy.AllowAnyOrigin();
+                        policy.AllowAnyMethod();
                     });
-            });
-
-            builder.Services.AddDbContext<ApplicationDbContext>(options =>
-            {
-                // Connection String here
-                var connectionString = builder.Configuration.GetConnectionString("NoteTakerConnectionString");
-                options.UseNpgsql(connectionString);
             });
 
             var app = builder.Build();

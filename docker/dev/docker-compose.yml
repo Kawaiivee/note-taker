@@ -6,6 +6,8 @@ services:
     build:
       context: ../../note-taker-web
       dockerfile: Dockerfile
+    expose:
+      - 7890
     ports:
       - "7890:7890"
     environment:
@@ -18,6 +20,8 @@ services:
     build:
       context: ../../NoteTaker/NoteTaker
       dockerfile: Dockerfile
+    expose:
+      - 7892
     ports:
       - "7892:7892"
     environment:
@@ -27,6 +31,8 @@ services:
   note-taker-db:
     container_name: note-taker-db
     image: postgres:latest
+    expose:
+      - 7894
     ports:
       - "7894:5432"
     volumes:

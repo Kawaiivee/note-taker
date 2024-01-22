@@ -20,7 +20,7 @@ import { RouterLink, RouterView } from 'vue-router'
           <v-col>
             <RouterView />
           </v-col>
-          </v-row>
+        </v-row>
       </v-container>
     </v-main>
   </v-app>
