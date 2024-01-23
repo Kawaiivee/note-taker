@@ -2,6 +2,8 @@ version: '3'
 services:
   note-taker-frontend:
     container_name: note-taker-frontend
+    networks:
+      - note-taker-network
     tty: true
     build:
       context: ../../note-taker-web
@@ -14,6 +16,8 @@ services:
       - note-taker-backend
   note-taker-backend:
     container_name: note-taker-backend
+    networks:
+      - note-taker-network
     tty: true
     build:
       context: ../../NoteTaker/NoteTaker
@@ -26,6 +30,8 @@ services:
       - note-taker-db
   note-taker-db:
     container_name: note-taker-db
+    networks:
+      - note-taker-network
     image: postgres:latest
     ports:
       - "7894:5432"
@@ -35,3 +41,6 @@ services:
       POSTGRES_DB: note_taker
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: kittycatmeow
+networks:
+  note-taker-network:
+    - bridge
