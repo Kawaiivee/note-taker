@@ -13,9 +13,16 @@ RUN dotnet restore
 # Copy the rest of the backend source code
 COPY . .
 
-# Restore and migrate
+# Install dotnet ef tool and migrate
+
+# Altogether
+# RUN dotnet tool install --global dotnet-ef && dotnet ef migrations add InitialCreate --verbose && dotnet ef database update --verbose
+
+# Separated
+RUN dotnet tool install --global dotnet-ef 
 ENV PATH="$PATH:/root/.dotnet/tools"
-RUN dotnet tool install --global dotnet-ef && dotnet ef migrations add InitialCreate --verbose && dotnet ef database update --verbose
+RUN dotnet ef migrations add InitialCreate --verbose
+RUN dotnet ef database update --verbose
 
 # Build the application
 RUN dotnet build -c Release -o /app
