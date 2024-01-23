@@ -43,4 +43,4 @@ services:
       POSTGRES_PASSWORD: kittycatmeow
 networks:
   note-taker-network:
-    - bridge
+    driver: bridge
