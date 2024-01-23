@@ -15,7 +15,7 @@ COPY . .
 
 # Restore and migrate
 ENV PATH="$PATH:/root/.dotnet/tools"
-RUN dotnet tool install --global dotnet-ef && dotnet ef migrations add InitialCreate --verbose && dotnet ef database update
+RUN dotnet tool install --global dotnet-ef && dotnet ef migrations add InitialCreate --verbose && dotnet ef database update --verbose
 
 # Build the application
 RUN dotnet build -c Release -o /app
